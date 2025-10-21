@@ -1,0 +1,82 @@
+//Find element in an array
+class Solution {
+  public:
+    int search(vector<int>& arr, int x) {
+        // code here
+        for(int i=0;i<arr.size();i++){
+            if(arr[i]==x){
+                return i;
+            }
+        }
+        return -1;
+    }
+};
+
+
+//Remove duplicate elements from an sorted array
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int j = 1;
+        int count = 1;
+        for(int i=1;i<nums.size();i++){
+            if(nums[i]!=nums[i-1]){
+                nums[j]=nums[i];
+                j++;
+                count++;
+            }
+        }
+        return count;
+    }
+};
+
+
+//Find repeating element an array
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        unordered_map<int, int> freq;
+        vector<int>res;
+        for (int i=0;i<nums.size();i++) {
+            if(freq[nums[i]]){
+                res.push_back(nums[i]);
+            }
+            freq[nums[i]]++;
+        }
+        return res;
+    }
+};
+
+
+//Find equilibrium element in an array
+class Solution {
+public:
+    int pivotIndex(vector<int>& nums) {
+        int sum1 = 0;
+        vector<int>pre(nums.size());
+        for(int i=0;i<nums.size();i++){
+            sum1+=nums[i];
+            pre[i]=sum1;
+        }
+        int sum2 = 0;
+        vector<int>post(nums.size());
+        for(int j=nums.size()-1;j>=0;j--){
+            sum2+=nums[j];
+            post[j]=sum2;
+        }
+        if(post[1]==0){
+            return 0;
+        }
+        if(pre[nums.size()-2]==0){
+            return nums.size()-1;
+        }
+        for(int k=1;k<nums.size()-1;k++){
+            if(pre[k-1]==post[k+1]){
+                return k;
+            }
+        }
+        return -1;
+    }
+};
+
+
