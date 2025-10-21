@@ -1,0 +1,48 @@
+//Find Factorial
+class Solution {
+  public:
+    int fact(int i){
+        if(i<=1){
+            return 1;
+        }
+        return i*fact(i-1);
+    }
+  
+    int factorial(int n) {
+        // code here
+        return fact(n);
+    }
+};
+
+
+//Find power of a number
+class Solution {
+  public:
+    int reverseExponentiation(int n) {
+        // code here
+        if(n==10){
+            return 10;
+        }
+        return pow(n, n);
+    }
+};
+
+
+//(printing increasing, decreasing and Decreasing Increasing)
+class Solution {
+  public:
+    void print(int i, int n){
+        if(i>n){
+            return;
+        }
+        cout<<i<<" ";
+        print(i+1, n);
+    }
+    
+    void printTillN(int n) {
+        // code here
+        print(1, n);
+    }
+};
+
+
