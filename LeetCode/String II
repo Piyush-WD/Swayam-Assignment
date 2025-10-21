@@ -1,0 +1,43 @@
+//Print maximum occurring character in a string
+class Solution {
+  public:
+    char getMaxOccuringChar(string& s) {
+        //  code here
+        vector<int>freq(26, 0);
+        for(int i=0;i<s.size();i++){
+            freq[s[i]-'a']++;
+        }
+        int max = -1;
+        for(int i=0;i<26;i++){
+            if(freq[i]>max){
+                max = freq[i];
+            }
+        }
+        for(int i=0;i<26;i++){
+            if(freq[i]==max){
+                char res = 'a'+i;
+                return res;
+            }
+        }
+    }
+};
+
+
+//Remove duplicate character from a string
+// User function template for C++
+class Solution {
+  public:
+    string removeDuplicates(string &s) {
+        // code here
+        unordered_map<char, int>map;
+        string str;
+        for(int i=0;i<s.size();i++){
+            if(!map[s[i]]){
+                str.push_back(s[i]);
+                map[s[i]]++;
+            }
+        }
+        return str;
+    }
+};
+
