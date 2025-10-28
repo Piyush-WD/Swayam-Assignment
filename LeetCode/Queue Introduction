@@ -1,0 +1,166 @@
+//Queue implementation using array
+class myQueue {
+    vector<int> q;
+    int size;
+    int front;
+    int rear;
+    int N;
+
+  public:
+    myQueue(int n) {
+        q.resize(n);
+        size = 0;
+        front = 0;
+        rear = 0;
+        N = n;
+    }
+
+    bool isEmpty() {
+        return size == 0;
+    }
+
+    bool isFull() {
+        return size == N;
+    }
+
+    void enqueue(int x) {
+        if (isFull()) return; 
+        q[rear] = x;
+        rear = (rear + 1) % N;
+        size++;
+    }
+
+    void dequeue() {
+        if (isEmpty()) return; 
+        front = (front + 1) % N;
+        size--;
+    }
+
+    int getFront() {
+        if (isEmpty()) return -1;
+        return q[front];
+    }
+
+    int getRear() {
+        if (isEmpty()) return -1;
+        return q[(rear - 1 + N) % N];
+    }
+};
+
+
+
+//Implement circular queue
+class MyCircularQueue {
+public:
+    queue<int>q;
+    int max;
+    int size;
+
+    MyCircularQueue(int k) {
+        max = k;
+        size = 0;
+    }
+    
+    bool enQueue(int value) {
+        if(size==max){
+            return false;
+        }
+        q.push(value);
+        size++;
+        return true;
+    }
+    
+    bool deQueue() {
+        if(size==0){
+            return false;
+        }
+        q.pop();
+        size--;
+        return true;
+    }
+    
+    int Front() {
+        if(q.empty()){
+            return -1;
+        }
+        return q.front();
+    }
+    
+    int Rear() {
+        if(q.empty()){
+            return -1;
+        }
+        return q.back();
+    }
+    
+    bool isEmpty() {
+        return size == 0;
+    }
+    
+    bool isFull() {
+        return size==max;
+    }
+};
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * MyCircularQueue* obj = new MyCircularQueue(k);
+ * bool param_1 = obj->enQueue(value);
+ * bool param_2 = obj->deQueue();
+ * int param_3 = obj->Front();
+ * int param_4 = obj->Rear();
+ * bool param_5 = obj->isEmpty();
+ * bool param_6 = obj->isFull();
+ */
+
+
+//Queue using stack
+class MyQueue {
+public:
+    stack<int>pu;
+    stack<int>po;
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        pu.push(x);
+    }
+    
+    int pop() {
+        if (po.empty()){
+            int s = pu.size();
+            for (int i=0;i<s;i++){
+                po.push(pu.top());
+                pu.pop();
+            }
+        }
+        int a = po.top();
+        po.pop();
+        return a;
+    }
+    
+    int peek() {
+        if (po.empty()){
+            int s = pu.size();
+            for (int i=0;i<s;i++){
+                po.push(pu.top());
+                pu.pop();
+            }
+        }
+        return po.top();
+    }
+    
+    bool empty() {
+        return (po.empty()&&pu.empty());
+    }
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue* obj = new MyQueue();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->peek();
+ * bool param_4 = obj->empty();
+ */
