@@ -1,0 +1,135 @@
+//Add Node on any position
+class MyLinkedList {
+public:
+    struct Node {
+        Node* next;
+        int val;
+        Node(int data) {
+            next = NULL;
+            val = data;
+        }
+    };
+
+    Node* head;
+    Node* tail;
+    int size;
+
+    MyLinkedList() {
+        head = tail = NULL;
+        size = 0;
+    }
+
+    int get(int index) {
+        if (index < 0 || index >= size) return -1;
+        Node* temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp->next;
+        }
+        return temp->val;
+    }
+
+    void addAtHead(int val) {
+        if (!head) {
+            head = tail = new Node(val);
+            size++;
+            return;
+        }
+        Node* temp = new Node(val);
+        temp->next = head;
+        head = temp;
+        size++;
+    }
+
+    void addAtTail(int val) {
+        if (!tail) {
+            head = tail = new Node(val);
+            size++;
+            return;
+        }
+        Node* temp = new Node(val);
+        tail->next = temp;
+        tail = temp;
+        size++;
+    }
+
+    void addAtIndex(int index, int val) {
+        if (index < 0 || index > size) return;
+        if (index == 0) {
+            addAtHead(val);
+            return;
+        }
+        if (index == size) {
+            addAtTail(val);
+            return;
+        }
+        Node* temp = head;
+        for (int i = 0; i < index - 1; i++) {
+            temp = temp->next;
+        }
+        Node* add = new Node(val);
+        add->next = temp->next;
+        temp->next = add;
+        size++;
+    }
+
+    void deleteAtIndex(int index) {
+        if (index < 0 || index >= size) return;
+
+        if (index == 0) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+            size--;
+            if (size == 0) tail = NULL;
+            return;
+        }
+
+        Node* prev = head;
+        for (int i = 0; i < index - 1; i++) {
+            prev = prev->next;
+        }
+
+        Node* toDelete = prev->next;
+        prev->next = toDelete->next;
+        if (toDelete == tail) tail = prev;
+        delete toDelete;
+        size--;
+    }
+};
+
+
+
+//Delete Node from given position
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        node->val = node->next->val;
+        ListNode* temp = node->next;
+        node->next = node->next->next;
+        delete temp;
+    }
+};
+
+
+//Count Node in linked List
+class Solution {
+  public:
+    int getCount(Node* head) {
+        // Code here
+        int count = 0;
+        Node*temp = head;
+        while(temp){
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
+};
