@@ -1,0 +1,135 @@
+//Add two number
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *head = NULL;
+        ListNode *tail = NULL;
+        while (l1&&l2){
+            if (head==NULL){
+                head = new ListNode(l1->val+l2->val);
+                tail = head;
+            }
+            else{
+                ListNode *temp = new ListNode(l1->val+l2->val);
+                tail->next=temp;
+                tail=temp;
+            }
+            l1=l1->next;
+            l2=l2->next;
+        }
+        if (l1==NULL&&l2){
+            tail->next=l2;
+        }
+        else if (l2==NULL&&l1){
+            tail->next=l1;
+        }
+        ListNode *temp = head;
+        while(temp){
+            if (temp->val>=10){
+                if (temp->next){
+                    temp->val=temp->val%10;
+                    temp->next->val+=1;
+                }
+                else{
+                    temp->val=temp->val%10;
+                    ListNode *carry = new ListNode(1);
+                    temp->next=carry;
+                }
+            }
+            temp=temp->next;
+        }
+        return head;
+    }
+};
+
+
+//Rotate list
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (head==NULL||head->next==NULL){
+            return head;
+        }
+        int count = 0;
+        ListNode *key = head;
+        while (key){
+            key=key->next;
+            count++;
+        }
+        k = k%count;
+        int i;
+        for (i=0;i<k;i++){
+            ListNode *curr = head;
+            ListNode *prev = NULL;
+            while (curr->next!=NULL){
+                prev=curr;
+                curr=curr->next;
+            }
+            ListNode *temp;
+            temp = new ListNode(curr->val);
+            temp->next = head;
+            head=temp;
+            prev->next=NULL;
+            delete curr;
+        }
+        return head;
+    }
+};
+
+
+//Remove duplicates from sorted list
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (head==NULL || head->next==NULL){
+            return head;
+        }
+        else{
+            ListNode *curr = head->next;
+            ListNode *prev = head;
+            while(curr){
+                if (curr->val==prev->val){
+                    prev->next=curr->next;
+                    ListNode *temp = curr;
+                    curr = curr->next;
+                    delete temp;
+                }
+                else{
+                    prev=curr;
+                    curr=curr->next;
+                }
+            }
+        }
+        return head;
+    }
+};
