@@ -1,0 +1,24 @@
+//Identifying rows with maximum 1s
+class Solution {
+public:
+    vector<int> rowAndMaximumOnes(vector<vector<int>>& mat) {
+        int max1s=0;
+        int max1row=0;
+        for(int i=0;i<mat.size();i++){
+            int sum = 0;
+            for(int j=0;j<mat[0].size();j++){
+                sum+=mat[i][j];
+            }
+            if(sum>max1s){
+                max1s=sum;
+                max1row=i;
+            }
+        }
+        vector<int>res;
+        res.push_back(max1row);
+        res.push_back(max1s);
+        return res;
+    }
+};
+
+
