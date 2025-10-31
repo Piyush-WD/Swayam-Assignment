@@ -1,0 +1,107 @@
+//Lower Bound
+class Solution {
+  public:
+    int lowerBound(vector<int>& arr, int target) {
+        // code here
+        if(arr.size()==0){
+            return 0;
+        }
+        int start = 0;
+        int end = arr.size()-1;
+        while(start<=end){
+            int mid = start+(end-start)/2;
+            if(arr[mid]>=target&&(mid==0||arr[mid-1]<target)){
+                return mid;
+            }
+            else if(arr[mid]>=target){
+                end=mid-1;
+            }
+            else{
+                start=mid+1;
+            }
+        }
+        return arr.size();
+    }
+};
+
+
+//Upper Bound
+class Solution {
+  public:
+    int upperBound(vector<int>& arr, int target) {
+        // code here
+        int start = 0;
+        int end = arr.size()-1;
+        while(start<=end){
+            int mid = start + (end-start)/2;
+            if(arr[mid]>target&&(mid==0||arr[mid-1]<=target)){
+                return mid;
+            }
+            else if(arr[mid]<=target){
+                start=mid+1;
+            }
+            else{
+                end=mid-1;
+            }
+        }
+        return arr.size();
+    }
+};
+
+
+//koko eating bananas
+class Solution {
+public:
+    long long reqTime(vector<int>& piles, int hourly) {
+        long long total = 0;
+        for (int bananas : piles) {
+            total += (bananas + (long long)hourly - 1) / hourly;
+        }
+        return total;
+    }
+
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int maxB = *max_element(piles.begin(), piles.end());
+        int start = 1, end = maxB, ans = maxB;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+            if (reqTime(piles, mid) <= h) {
+                ans = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return ans;
+    }
+};
+
+
+//first bad version
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        double start = 1;
+        double end = n;
+        int ans;
+        while (start<=end){
+            double mid = (start+end)/2;
+            if (!isBadVersion(mid-1)&&isBadVersion(mid)){
+                ans = mid;
+                break;
+            }
+            else if (!isBadVersion(mid)&&isBadVersion(mid+1)){
+                ans = mid+1;
+                break;
+            }
+            else if (!isBadVersion(mid)&&!isBadVersion(mid+1)){
+                start = mid+1;
+            }
+            else{
+                end = mid-1;
+            }
+        }
+        return ans;
+    }
+};
