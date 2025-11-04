@@ -1,0 +1,46 @@
+/*
+
+Given a positive number `n`, find all combinations of `2×n` elements such that every element from 1 to `n` appears exactly twice and the distance between its two appearances is exactly equal to the value of the element.
+
+Input : n = 3
+Output: {[3, 1, 2, 1, 3, 2], [2, 3, 1, 2, 1, 3]}
+
+Input : n = 4
+Output: {[4, 1, 3, 1, 2, 4, 3, 2], [2, 3, 4, 2, 1, 3, 1, 4]}
+
+Input : n = 5
+Output: {}
+
+*/
+
+class Solution
+{
+public:
+	void permute(int x, int n, vector<int>&res, set<vector<int>>&combinations){
+		if(x>n){
+			combinations.insert(res);
+			return;
+		}
+		for(int i=0;i<2*n;i++){
+			if(res[i]==-1&&i+x+1<2*n&&res[i+x+1]==-1){
+				res[i]=x;
+				res[i+x+1]=x;
+				permute(x+1, n, res, combinations);
+				res[i]=-1;
+				res[i+x+1]=-1;
+			}
+		}
+	}
+
+	set<vector<int>> findCombinations(int n)
+	{
+		set<vector<int>> combinations;
+
+		// Write your code here...
+		vector<int>res(2*n, -1);
+		permute(1, n, res, combinations);
+		
+
+		return combinations;
+	}
+};
