@@ -1,0 +1,36 @@
+class Solution {
+  public:
+    bool DFS(int node, int n, vector<bool>&visited, int count, vector<vector<int>>&adj){
+        visited[node]=true;
+        count++;
+        if(count==n){
+            return true;
+        }
+        for(int i=0;i<adj[node].size();i++){
+            if(!visited[adj[node][i]]&&DFS(adj[node][i], n, visited, count, adj)){
+                return true;
+            }
+        }
+        visited[node]=false; //Backtracking
+        count--;
+        return false;
+    }
+  
+    bool check(int n, int m, vector<vector<int>> edges) {
+        // code here
+        vector<vector<int>>adj(n);
+        //Adj mat -> Adj list
+        for(int i=0;i<m;i++){
+            adj[edges[i][0]-1].push_back(edges[i][1]-1);
+            adj[edges[i][1]-1].push_back(edges[i][0]-1);
+        }
+        vector<bool>visited(n, false);
+        int count = 0;
+        for(int i=0;i<n;i++){
+            if(DFS(i, n, visited, count, adj)){
+                return true;
+            }
+        }
+        return false;
+    }
+};
