@@ -1,0 +1,28 @@
+
+class Solution {
+  public:
+    void permute(int i, int n, string &s, vector<string> &ans){
+        if(i==n){
+            ans.push_back(s);
+            return;
+        }
+        if(s[i]=='?'){
+            s[i]='0';
+            permute(i+1, n, s, ans);
+            s[i]='1';
+            permute(i+1, n, s, ans);
+            s[i]='?';
+        }
+        else{
+            permute(i+1, n, s, ans);
+        }
+    }
+  
+    vector<string> generate_binary_string(string s) {
+        // Code here
+        vector<string>ans;
+        int n = s.size();
+        permute(0, n, s, ans);
+        return ans;
+    }
+};
