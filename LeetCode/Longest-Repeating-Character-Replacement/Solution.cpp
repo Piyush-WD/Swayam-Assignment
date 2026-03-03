@@ -7,7 +7,7 @@
 7        while(r<s.size()){
 8            map[s[r]]++;
 9            maxf=max(maxf,map[s[r]]);
-10            while((r-l+1)-maxf>k){
+10            if((r-l+1)-maxf>k){
 11                map[s[l]]--;
 12                maxf=0;
 13                for(auto p:map){
