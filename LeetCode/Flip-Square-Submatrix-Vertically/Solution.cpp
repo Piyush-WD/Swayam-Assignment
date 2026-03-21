@@ -1,20 +1,22 @@
-class Solution:
-    def reverseSubmatrix(self, grid: List[List[int]], x: int, y: int, k: int) -> List[List[int]]:
-        n = len(grid[0])
-        if k <= (n + 1)//2:
-            for j in range(k//2):
-                toprow = grid[x+j]
-                bottomrow = grid[x+k-1-j]
-                for i in range(y,y+k):
-                    toprow[i],bottomrow[i] = bottomrow[i],toprow[i]
-        else:
-            for j in range(k//2):
-                t_ind, b_ind = x+j, x+k-1-j 
-                toprow = grid[t_ind]
-                bottomrow = grid[b_ind]
-                for i in range(y):
-                    toprow[i], bottomrow[i] = bottomrow[i], toprow[i]
-                for i in range(y+k,n):
-                    toprow[i], bottomrow[i] = bottomrow[i], toprow[i]
-                grid[t_ind], grid[b_ind] = grid[b_ind], grid[t_ind]
-        return grid
+1class Solution {
+2public:
+3    vector<vector<int>> reverseSubmatrix(vector<vector<int>>& grid, int x, int y, int k) {
+4        int n=grid.size();
+5        int m=grid[0].size();
+6        for(int i=0;i<k;i++){
+7            int i1=x;
+8            int j1=y;
+9            int i2=x+k-1;
+10            int j2=y;
+11            while(i1<i2){
+12                int temp = grid[i1][j1];
+13                grid[i1][j1]=grid[i2][j2];
+14                grid[i2][j2]=temp;
+15                i1++;
+16                i2--;
+17            }
+18            y++;
+19        }
+20        return grid;
+21    }
+22};
